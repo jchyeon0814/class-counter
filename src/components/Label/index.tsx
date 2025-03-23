@@ -1,3 +1,4 @@
+import { Component } from 'react';
 import styled from '@emotion/styled';
 
 const Container = styled.span`
@@ -9,6 +10,15 @@ interface Props {
     readonly data: number;
 }
 
-export const Label = ({ data }: Props) => {
-    return <Container>{data}</Container>;
+
+
+// export const Label = ({ data }: Props) => {
+//     return <Container>{data}</Container>;
+// }
+
+export class Label extends Component<Props> {
+    render() {
+        const { data } = this.props;
+        return <Container>{data}</Container>;
+    }
 }

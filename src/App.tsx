@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react';
 import styled from '@emotion/styled'
-import { useState } from 'react';
+
 import { Button } from 'components/Button';
 import { Label } from 'components/Label';
 
@@ -24,27 +25,72 @@ const Contents = styled.div`
   justify-content: center;
 `;
 
-function App() {
-  const [counter, setCounter] = useState(0);
-  
-  const sub = () => {
-    setCounter(counter - 1);
-  };
+type Props = Record<string, never>; //App 컴포넌트는 기본적으로 어떠한 Prop도 받지 않는다는 것을 명시
 
-  const add = () => {
-    setCounter(counter + 1);
-  };
-
-  return (
-    <Container>
-      <Title>Counter App</Title>
-      <Contents>
-        <Button label="-" onClick={sub} />
-        <Label data={counter} />
-        <Button label="+" onClick={add} />
-      </Contents>
-    </Container>
-  );
+interface State {
+  readonly counter: number;
 }
 
-export default App;
+export class App extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      counter: 0,
+    };
+  }
+
+  private sub = () => {
+    const { counter } = this.state;
+    this.setState({
+      counter: counter - 1,
+    });
+  }
+
+  private add = () => {
+    const { counter } = this.state;
+    this.setState({
+      counter: counter + 1,
+    });
+  }
+
+  render() {
+    const { counter } = this.state;
+
+    return (
+      <Container>
+        <Title>Counter App</Title>
+        <Contents>
+          <Button label="-" onClick={this.sub} />
+          <Label data={counter} />
+          <Button label="+" onClick={this.add} />
+        </Contents>
+      </Container>
+    );
+  }
+}
+
+// function App() {
+//   const [counter, setCounter] = useState(0);
+  
+//   const sub = () => {
+//     setCounter(counter - 1);
+//   };
+
+//   const add = () => {
+//     setCounter(counter + 1);
+//   };
+
+//   return (
+//     <Container>
+//       <Title>Counter App</Title>
+//       <Contents>
+//         <Button label="-" onClick={sub} />
+//         <Label data={counter} />
+//         <Button label="+" onClick={add} />
+//       </Contents>
+//     </Container>
+//   );
+// }
+
+// export default App;
