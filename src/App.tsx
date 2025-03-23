@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { IScriptSnapshot } from 'typescript';
 import { Component } from 'react';
 import styled from '@emotion/styled'
 
@@ -54,6 +55,52 @@ export class App extends Component<Props, State> {
     });
   }
 
+  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
+    console.log('getDerivedStateFromProps');
+    console.log('nextProps: ', nextProps);
+    console.log('prevState: ', prevState);
+
+    return null;
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
+    console.log('getSnapshotBeforeUpdate');
+    console.log('prevProps: ', prevProps);
+    console.log('prevState: ', prevState);
+
+    return {
+      testData: true,
+    };
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State, snapshot: IScriptSnapshot) {
+    console.log('componentDidUpdate');
+  }
+
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
+    console.log('shouldComponentUpdate');
+    console.log('nextProps: ', nextProps);
+    console.log('nextState: ', nextState);
+
+    return true;
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    console.log('componentDidCatch');
+    console.log('error: ', error);
+    console.log('info: ', info);
+    // this.setState({
+    //   error: true,
+    // });
+  }
   render() {
     const { counter } = this.state;
 
@@ -93,4 +140,4 @@ export class App extends Component<Props, State> {
 //   );
 // }
 
-// export default App;
+export default App;
